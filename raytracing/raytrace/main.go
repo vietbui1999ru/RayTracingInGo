@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"math"
 	"os"
 	color "raytracing/colorUtil"
 	"raytracing/ray"
@@ -20,38 +19,6 @@ var(
   cameraCenter vec3.Point3 = vec3.Point3{X:0, Y: 0, Z: 0}
 )
 
-func rayColor(r ray.Ray) color.Color {
-    // fmt.Printf("Vector: %v\n", r.Direction) Works
-  t := HitSphere(vec3.Point3{X:0,Y:0,Z:-1}, 0.5, r)
-  if t > 0 {
-    Pt := r.At(t)
-    N := (Pt.Subtract(vec3.Vec3{X:0, Y:0, Z:-1})).UnitVector()
-    return color.Color{X:N.X+1, Y:N.Y+1, Z:N.Z+1}.MultByScalar(0.5)
-  }
-  unitDirection := r.Direction.UnitVector()
-  // fmt.Printf("UnitDirection : %v\n", unitDirection) // UnitVector not Working
-  a := 0.5 * unitDirection.Y + 1.0
-  // a = vec3.Clamp(a, 0, 1)
-    
-    // Use Add without modifying in place to ensure clean results
-  return color.Color{X:1.0, Y:1.0, Z:1.0}.MultByScalar(1.0 - a).Add(color.Color{X:0.5, Y:0.7, Z:1.0}.MultByScalar(a))
-}
-
-func HitSphere(center vec3.Point3, radius float64, r ray.Ray) float64 {
-  oc := center.Subtract(r.Origin)
-  a := vec3.Dot(r.Direction, r.Direction)
-
-  b := -2.0 * vec3.Dot(r.Direction, oc)
-  c := vec3.Dot(oc, oc) - radius * radius
-  discriminant := b*b - 4 * a * c
-  // evaulate to true, means that we have 0 or 1 or 2 real solutions
-
-  if (discriminant < 0) {
-    return -1.0
-  } else {
-  return (-b - math.Sqrt(discriminant)) / (2 * a)
-  }
-}
 
 func main() {
 
@@ -98,7 +65,7 @@ func main() {
       r := ray.NewRay(cameraCenter, rayDirection)
       // fmt.Printf("Ray r := %v\n", r)
 
-      pixelColor := rayColor(r)
+      pixelColor := ray.RayColor(r)
       // fmt.Printf("Pixel Color: %v\n", pixelColor)
       color.WriteColor(pixelColor, file)
 
