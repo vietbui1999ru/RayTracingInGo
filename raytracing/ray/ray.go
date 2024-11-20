@@ -26,10 +26,6 @@ func (r Ray) At(t float64) vec3.Vec3 {
   return r.Origin.Add(r.Direction.MultByScalar(t))
 }
 
-func Random() {
-  fmt.Println("Lol")
-}
-
 func RayColor(r Ray) color.Color {
     // fmt.Printf("Vector: %v\n", r.Direction) Works
   t := HitSphere(vec3.Point3{X:0,Y:0,Z:-1}, 0.5, r)
