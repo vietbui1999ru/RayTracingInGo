@@ -1,6 +1,7 @@
 package ray
 
 import (
+	"fmt"
 	"math"
 	color "raytracing/colorUtil"
 	"raytracing/vec3"
@@ -23,6 +24,10 @@ func NewRay(origin, direction vec3.Vec3) Ray {
 // At: returns the Ray at position t along the ray 
 func (r Ray) At(t float64) vec3.Vec3 {
   return r.Origin.Add(r.Direction.MultByScalar(t))
+}
+
+func Random() {
+  fmt.Println("Lol")
 }
 
 func RayColor(r Ray) color.Color {
