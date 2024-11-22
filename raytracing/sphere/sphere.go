@@ -42,8 +42,10 @@ func (s Sphere) Hit(r ray.Ray, ray_tmin, ray_tmax float64, rec *hittable.HitReco
 
   rec.T = root
   rec.P = r.At(rec.T)
+
   outwardNormal := rec.P.Subtract(s.Center).DivByScalar(s.Radius)
-  rec.Normal = outwardNormal
+  // rec.Normal = outwardNormal
+  rec.SetFaceNormal(r, outwardNormal)
   
   return true
 

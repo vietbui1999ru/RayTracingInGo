@@ -1,7 +1,6 @@
 package ray
 
 import (
-	"fmt"
 	"math"
 	color "raytracing/colorUtil"
 	"raytracing/vec3"
